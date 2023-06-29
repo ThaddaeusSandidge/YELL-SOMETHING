@@ -52,7 +52,7 @@ export const postsRouter = createTRPCRouter({
   }),
   create: privateProcedure.input(
     z.object({
-      content: z.string().min(1).max(280)
+      content: z.string().min(1).max(280, "Your message is too long, try again!")
     })).mutation(async ({ ctx, input }) => {
       const authorId = ctx.userId;
       const { success } = await ratelimit.limit(authorId);
